@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
     paths:
       - version.py
       - .github/workflows/build-package.yml
@@ -22,7 +22,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install wheel numpy==1.23.5 pyparsing==3.0.9 wxpython==4.2.0 pyinstaller==5.7.0
-        git clone --depth=1 -b master https://github.com/NAStool/nas-tools --recurse-submodule
+        git clone --depth=1 -b main https://github.com/c939984606/Nas_Tools_Pro --recurse-submodule
         cd nas-tools
         pip install -r requirements.txt
         echo ("NASTOOL_CONFIG=D:/a/nas-tools/nas-tools/nas-tools/config/config.yaml") >> $env:GITHUB_ENV
@@ -65,7 +65,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install wheel pyinstaller==5.7.0
-          git clone --depth=1 -b master https://github.com/NAStool/nas-tools --recurse-submodule
+          git clone --depth=1 -b main https://github.com/c939984606/Nas_Tools_Pro --recurse-submodule
           cd nas-tools
           pip install -r requirements.txt
           echo ("NASTOOL_CONFIG=/home/runner/work/nas-tools/nas-tools/nas-tools/config/config.yaml") >> $env:GITHUB_ENV
@@ -103,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
 
       - name: Set Up QEMU
         uses: docker/setup-qemu-action@v1
@@ -114,7 +114,7 @@ jobs:
       - name: Package through pyinstaller
         run: |
           mkdir rootfs
-          docker buildx build --platform linux/arm64 --file ./package/builder/Dockerfile --build-arg branch=master --output type=local,dest=./rootfs .
+          docker buildx build --platform linux/arm64 --file ./package/builder/Dockerfile --build-arg branch=main --output type=local,dest=./rootfs .
           mkdir -p /home/runner/work/nas-tools/nas-tools/nas-tools/package/dist/
           cp ./rootfs/nas-tools /home/runner/work/nas-tools/nas-tools/nas-tools/package/dist/nas-tools.linux.arm64
         shell: pwsh
@@ -129,7 +129,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
 
       - name: Set Up QEMU
         uses: docker/setup-qemu-action@v1
@@ -140,7 +140,7 @@ jobs:
       - name: Package through pyinstaller
         run: |
           mkdir rootfs
-          docker buildx build --platform linux/amd64 --file ./package/builder/alpine.Dockerfile --build-arg branch=master --output type=local,dest=./rootfs .
+          docker buildx build --platform linux/amd64 --file ./package/builder/alpine.Dockerfile --build-arg branch=main --output type=local,dest=./rootfs .
           mkdir -p /home/runner/work/nas-tools/nas-tools/nas-tools/package/dist/
           cp ./rootfs/nas-tools /home/runner/work/nas-tools/nas-tools/nas-tools/package/dist/nas-tools.linux.musl.amd64
         shell: pwsh
@@ -155,7 +155,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
 
       - name: Set Up QEMU
         uses: docker/setup-qemu-action@v1
@@ -166,7 +166,7 @@ jobs:
       - name: Ppackage through pyinstaller
         run: |
           mkdir rootfs
-          docker buildx build --platform linux/arm64 --file ./package/builder/alpine.Dockerfile --build-arg branch=master --output type=local,dest=./rootfs .
+          docker buildx build --platform linux/arm64 --file ./package/builder/alpine.Dockerfile --build-arg branch=main --output type=local,dest=./rootfs .
           mkdir -p /home/runner/work/nas-tools/nas-tools/nas-tools/package/dist/
           cp ./rootfs/nas-tools /home/runner/work/nas-tools/nas-tools/nas-tools/package/dist/nas-tools.linux.musl.arm64
         shell: pwsh
@@ -189,7 +189,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install wheel numpy==1.23.5 pyparsing==3.0.9 pyinstaller==5.7.0
-          git clone --depth=1 -b master https://github.com/NAStool/nas-tools --recurse-submodule
+          git clone --depth=1 -b main https://github.com/c939984606/Nas_Tools_Pro --recurse-submodule
           cd nas-tools
           pip install -r requirements.txt
           CURRENT_DIR=$(pwd)
@@ -273,12 +273,3 @@ jobs:
         release_id: ${{ steps.create_release.outputs.id }}
         assets_path: |
             /home/runner/work/nas-tools/nas-tools/releases/
-
-    - name: Send telegram message (release informations)
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        format: markdown
-        message: |
-            ${{ github.event.commits[0].message }}
