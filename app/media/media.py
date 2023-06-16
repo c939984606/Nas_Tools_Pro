@@ -1034,7 +1034,7 @@ class Media:
         return ret_infos
 
     @staticmethod
-    def __dict_tmdbinfos(infos, mtype=None, poster_filter=False):
+    def __dict_tmdbinfos(infos, mtype=None):
         """
         TMDB电影信息转为字典
         """
@@ -1045,8 +1045,6 @@ class Media:
             tmdbid = info.get("id")
             vote = round(float(info.get("vote_average")), 1) if info.get("vote_average") else 0,
             image = Config().get_tmdbimage_url(info.get("poster_path"))
-            if poster_filter and not image:
-                continue
             overview = info.get("overview")
             if mtype:
                 media_type = mtype.value
@@ -2008,10 +2006,10 @@ class Media:
         try:
             if mtype == MediaType.MOVIE:
                 movies = self.discover.discover_movies(params=params, page=page)
-                return self.__dict_tmdbinfos(infos=movies, mtype=mtype, poster_filter=True)
+                return self.__dict_tmdbinfos(movies, mtype)
             elif mtype == MediaType.TV:
                 tvs = self.discover.discover_tv_shows(params=params, page=page)
-                return self.__dict_tmdbinfos(infos=tvs, mtype=mtype, poster_filter=True)
+                return self.__dict_tmdbinfos(tvs, mtype)
         except Exception as e:
             print(str(e))
         return []

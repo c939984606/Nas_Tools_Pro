@@ -343,51 +343,6 @@ class ModuleConf(object):
                     }
                 }
             },
-             "ntfy": {
-                "name": "ntfy",
-                "img_url": "../static/img/message/ntfy.webp",
-                "color": "#409D8A",
-                "config": {
-                    "server": {
-                        "id": "ntfy_server",
-                        "required": True,
-                        "title": "ntfy服务器地址",
-                        "tooltip": "自己搭建ntfy服务端地址",
-                        "type": "text",
-                        "placeholder": "http://localhost:8800"
-                    },
-                    "token": {
-                        "id": "ntfy_token",
-                        "required": True,
-                        "title": "令牌Token",
-                        "tooltip": "ntfy服务端创建的token",
-                        "type": "text"
-                    },
-                     "topic": {
-                        "id": "ntfy_topic",
-                        "required": True,
-                        "title": "topic",
-                        "tooltip": "ntfy创建的topic",
-                        "type": "text"
-                    },
-                    "priority": {
-                        "id": "ntfy_priority",
-                        "required": False,
-                        "title": "消息Priority",
-                        "tooltip": "消息通知优先级, 请填写数字(1-5), 默认: 4",
-                        "type": "text",
-                        "placeholder": "4"
-                    },
-                    "tags": {
-                        "id": "ntfy_tags",
-                        "required": False,
-                        "title": "消息tags",
-                        "tooltip": "消息tags,以逗号分隔, 请参阅ntfy官网, 默认: rotating_light",
-                        "type": "text",
-                        "placeholder": "rotating_light"
-                    }
-                }
-            },
             "chanify": {
                 "name": "Chanify",
                 "img_url": "../static/img/message/chanify.png",
@@ -798,19 +753,68 @@ class ModuleConf(object):
     }
 
     # 索引器
-    INDEXER_CONF = {}
+    INDEXER_CONF = {
+        "jackett": {
+            "name": "Jackett",
+            "img_url": "./static/img/jackett.png",
+            "background": "bg-black",
+            "test_command": "app.indexer.client.jackett|Jackett",
+            "config": {
+                "host": {
+                    "id": "jackett.host",
+                    "required": True,
+                    "title": "Jackett地址",
+                    "tooltip": "Jackett访问地址和端口，如为https需加https://前缀。注意需要先在Jackett中添加indexer，才能正常测试通过和使用",
+                    "type": "text",
+                    "placeholder": "http://127.0.0.1:9117"
+                },
+                "api_key": {
+                    "id": "jackett.api_key",
+                    "required": True,
+                    "title": "Api Key",
+                    "tooltip": "Jackett管理界面右上角复制API Key",
+                    "type": "text",
+                    "placeholder": ""
+                },
+                "password": {
+                    "id": "jackett.password",
+                    "required": False,
+                    "title": "密码",
+                    "tooltip": "Jackett管理界面中配置的Admin password，如未配置可为空",
+                    "type": "password",
+                    "placeholder": ""
+                }
+            }
+        },
+        "prowlarr": {
+            "name": "Prowlarr",
+            "img_url": "../static/img/prowlarr.png",
+            "background": "bg-orange",
+            "test_command": "app.indexer.client.prowlarr|Prowlarr",
+            "config": {
+                "host": {
+                    "id": "prowlarr.host",
+                    "required": True,
+                    "title": "Prowlarr地址",
+                    "tooltip": "Prowlarr访问地址和端口，如为https需加https://前缀。注意需要先在Prowlarr中添加搜刮器，同时勾选所有搜刮器后搜索一次，才能正常测试通过和使用",
+                    "type": "text",
+                    "placeholder": "http://127.0.0.1:9696"
+                },
+                "api_key": {
+                    "id": "prowlarr.api_key",
+                    "required": True,
+                    "title": "Api Key",
+                    "tooltip": "在Prowlarr->Settings->General->Security-> API Key中获取",
+                    "type": "text",
+                    "placeholder": ""
+                }
+            }
+        }
+    }
 
     # 发现过滤器
     DISCOVER_FILTER_CONF = {
         "tmdb_movie": {
-            "sort_by": {
-                "name": "排序",
-                "type": "dropdown",
-                "options": [{'value': '', 'name': '默认'},
-                            {'value': 'popularity.desc', 'name': '近期热度'},
-                            {'value': 'vote_average.desc', 'name': '高分优先'},
-                            {'value': 'release_date.desc', 'name': '首播时间'}]
-            },
             "with_genres": {
                 "name": "类型",
                 "type": "dropdown",
@@ -843,14 +847,6 @@ class ModuleConf(object):
             }
         },
         "tmdb_tv": {
-            "sort_by": {
-                "name": "排序",
-                "type": "dropdown",
-                "options": [{'value': '', 'name': '默认'},
-                            {'value': 'popularity.desc', 'name': '近期热度'},
-                            {'value': 'vote_average.desc', 'name': '高分优先'},
-                            {'value': 'first_air_date.desc', 'name': '首播时间'}]
-            },
             "with_genres": {
                 "name": "类型",
                 "type": "dropdown",

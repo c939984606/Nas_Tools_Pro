@@ -218,6 +218,7 @@ def web():
     CooperationSites = current_user.get_authsites()
     Menus = WebAction().get_user_menus().get("menus") or []
     Commands = WebAction().get_commands()
+    current_user.level = 2
     return render_template('navigation.html',
                            GoPage=GoPage,
                            CurrentUser=current_user,
@@ -395,11 +396,6 @@ def sitelist():
                            Sites=IndexerSites,
                            Count=len(IndexerSites))
 
-
-# 唤起App中转页面
-@App.route('/open', methods=['POST', 'GET'])
-def open_app():
-    return render_template("openapp.html")
 
 # 站点资源页面
 @App.route('/resources', methods=['POST', 'GET'])
@@ -1204,9 +1200,9 @@ def plex_webhook():
     request_json = json.loads(request.form.get('payload', {}))
     log.debug("收到Plex Webhook报文：%s" % str(request_json))
     # 事件类型
-    event_match = request_json.get("event") in ["media.play", "media.stop", "library.new"]
+    event_match = request_json.get("event") in ["media.play", "media.stop"]
     # 媒体类型
-    type_match = request_json.get("Metadata", {}).get("type") in ["movie", "episode", "show"]
+    type_match = request_json.get("Metadata", {}).get("type") in ["movie", "episode"]
     # 是否直播
     is_live = request_json.get("Metadata", {}).get("live") == "1"
     # 如果事件类型匹配,媒体类型匹配,不是直播

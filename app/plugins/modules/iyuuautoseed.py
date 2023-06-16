@@ -1,6 +1,6 @@
 import re
 from copy import deepcopy
-from datetime import datetime, timedelta
+from datetime import datetime
 from threading import Event
 
 import pytz
@@ -240,8 +240,7 @@ class IYUUAutoSeed(_IPluginModule):
             if self._onlyonce:
                 self.info(f"辅种服务启动，立即运行一次")
                 self._scheduler.add_job(self.auto_seed, 'date',
-                                        run_date=datetime.now(tz=pytz.timezone(Config().get_timezone())) + timedelta(
-                                            seconds=3))
+                                        run_date=datetime.now(tz=pytz.timezone(Config().get_timezone())))
                 # 关闭一次性开关
                 self._onlyonce = False
             if self._clearcache:

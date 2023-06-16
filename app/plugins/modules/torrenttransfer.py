@@ -1,6 +1,6 @@
 import os.path
 from copy import deepcopy
-from datetime import datetime, timedelta
+from datetime import datetime
 from threading import Event
 
 import pytz
@@ -316,8 +316,7 @@ class TorrentTransfer(_IPluginModule):
             if self._onlyonce:
                 self.info(f"移转做种服务启动，立即运行一次")
                 self._scheduler.add_job(self.transfer, 'date',
-                                        run_date=datetime.now(tz=pytz.timezone(Config().get_timezone())) + timedelta(
-                                            seconds=3))
+                                        run_date=datetime.now(tz=pytz.timezone(Config().get_timezone())))
                 # 关闭一次性开关
                 self._onlyonce = False
                 self.update_config({

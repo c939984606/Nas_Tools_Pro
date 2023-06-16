@@ -174,6 +174,7 @@ class AutoSub(_IPluginModule):
                 'id': 'faster_whisper_config',
                 'summary': 'faster-whisper 配置',
                 'tooltip': '使用 faster-whisper 引擎时的配置，安装参考 https://github.com/guillaumekln/faster-whisper',
+                'hidden': True,
                 'content': [
                     [
                         {
@@ -273,11 +274,6 @@ class AutoSub(_IPluginModule):
                 $('#autosubwhisper_config').show();
                 $('#autosubfaster_whisper_config').hide();
             }
-        }
-        
-        // 初始化完成后执行的方法
-        function AutoSub_PluginInit(){
-            AutoSub_asr_engine_change('#autosubasr_engine');
         }
         """
 
