@@ -1,7 +1,9 @@
+import json
 from functools import lru_cache
 from urllib.parse import quote
 
 import cn2an
+import requests
 
 from app.media import Media, Bangumi, DouBan
 from app.media.meta import MetaInfo
@@ -38,6 +40,15 @@ class WebUtils:
             return ""
 
     @staticmethod
+    def get_latest_tag(repo):
+        url = f"https://api.github.com/repos/{repo}/tags"
+        response = requests.get(url)
+        data = json.loads(response.text)
+        if data and isinstance(data, list):
+            return data[0].get('name', 'No tag found')
+        return "No tag found"
+
+    @staticmethod
     def get_current_version():
         """
         获取当前版本号
@@ -53,15 +64,31 @@ class WebUtils:
         获取最新版本号
         """
         try:
-            releases_update_only = Config().get_config("app").get("releases_update_only")
-            version_res = RequestUtils(proxies=Config().get_proxies()).get_res(
-                f"https://nastool.cn/{quote(WebUtils.get_current_version())}/update")
-            if version_res:
-                ver_json = version_res.json()
-                version = ver_json.get("latest")
-                link = ver_json.get("link")
-                if version and releases_update_only:
-                    version = version.split()[0]
+            # releases_update_only = Config().get_config("app").get("releases_update_only")
+            # version_res = RequestUtils(proxies=Config().get_proxies()).get_res(
+            #     f"https://nastool.cn/{quote(WebUtils.get_current_version())}/update")
+            # print(f"https://nastool.cn/{quote(WebUtils.get_current_version())}/update")
+            #
+            # if version_res:
+            #     ver_json = version_res.json()
+            #     print(ver_json)
+            #     version = ver_json.get("latest")
+            #     link = ver_json.get("link")
+            #     if version and releases_update_only:
+            #         version = version.split()[0]
+            #     print(version, link)
+            version = WebUtils.get_current_version()
+            tag = WebUtils.get_latest_tag("c939984606/Nas_Tools_Pro")
+            link = f"https://github.com/c939984606/Nas_Tools_Pro/releases/tag/{tag}"
+            if link:
+                # ver_json = version_res.json()
+                # print(ver_json)
+                # version = ver_json.get("latest")
+                # link = ver_json.get("link")
+                # if version and releases_update_only:
+                #     version = version.split()[0]
+                print(version, link)
+
                 return version, link
         except Exception as e:
             ExceptionUtils.exception_traceback(e)
