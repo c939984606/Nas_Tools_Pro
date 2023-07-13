@@ -5309,7 +5309,8 @@ class WebAction:
         """
         return {
             "code": 0,
-            "menus": current_user.get_topmenus()
+            # "menus": current_user.get_topmenus()
+            "menus": ['我的媒体库', '探索', '资源搜索', '站点管理', '订阅管理', '下载管理', '媒体整理', '服务', '系统设置']
         }
 
     @staticmethod
