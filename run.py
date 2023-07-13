@@ -2,7 +2,7 @@ import os
 import signal
 import sys
 import warnings
-os.environ["NASTOOL_CONFIG"] = "/home/kcui/Github/config/config.yaml"
+# os.environ["NASTOOL_CONFIG"] = "E:/Github/config/config.yaml"
 warnings.filterwarnings('ignore')
 
 # 运行环境判断

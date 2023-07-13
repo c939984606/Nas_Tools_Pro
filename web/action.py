@@ -248,6 +248,7 @@ class WebAction:
             "/sta": {"func": self.user_statistics, "desc": "站点数据统计"}
         }
 
+
     def action(self, cmd, data):
         """
         执行WEB请求
@@ -5297,7 +5298,8 @@ class WebAction:
         return {
             "code": 0,
             "menus": menus,
-            "level": current_user.level
+            # "level": current_user.level
+            "level": 2
         }
 
     @staticmethod
@@ -5580,6 +5582,7 @@ class WebAction:
         """
         获取插件列表
         """
+        current_user.level = 2
         plugins = PluginManager().get_plugin_apps(current_user.level)
         statistic = PluginHelper.statistic()
         return {"code": 0, "result": plugins, "statistic": statistic}
@@ -5608,6 +5611,7 @@ class WebAction:
 
     @staticmethod
     def get_plugins_conf():
+        current_user.level = 2
         Plugins = PluginManager().get_plugins_conf(current_user.level)
         return {"code": 0, "result": Plugins}
 
