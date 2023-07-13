@@ -19,10 +19,10 @@ export class LayoutNavbar extends CustomElement {
     super();
     this.navbar_list = [];
     this.layout_gopage = "";
-    this.layout_appversion = "v3.0.0";
+    this.layout_appversion = "v3.2.2";
     this._active_name = "";
     this._update_appversion = "";
-    this._update_url = "https://github.com/NAStool/nas-tools";
+    this._update_url = "https://github.com/c939984606/Nas_Tools_Pro.git";
     this._is_update = false;
     this._is_expand = false;
     this.classList.add("navbar","navbar-vertical","navbar-expand-lg","lit-navbar-fixed","lit-navbar","lit-navbar-hide-scrollbar");
