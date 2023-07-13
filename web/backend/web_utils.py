@@ -87,7 +87,7 @@ class WebUtils:
                 # link = ver_json.get("link")
                 # if version and releases_update_only:
                 #     version = version.split()[0]
-                print(version, link)
+                # print(version, link)
 
                 return version, link
         except Exception as e:
