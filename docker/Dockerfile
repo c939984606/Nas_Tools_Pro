@@ -2,6 +2,7 @@ FROM alpine:3.17 AS Builder
 RUN apk add --no-cache --virtual .build-deps \
         libffi-dev \
         gcc \
+        nano \
         musl-dev \
         libxml2-dev \
         libxslt-dev \
