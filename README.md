@@ -1,21 +1,16 @@
 ![logo-blue](https://user-images.githubusercontent.com/51039935/197520391-f35db354-6071-4c12-86ea-fc450f04bc85.png)
 # NAS媒体库管理工具
 
-[![GitHub stars](https://img.shields.io/github/stars/NAStool/nas-tools?style=plastic)](https://github.com/NAStool/nas-tools/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/NAStool/nas-tools?style=plastic)](https://github.com/NAStool/nas-tools/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/NAStool/nas-tools?style=plastic)](https://github.com/NAStool/nas-tools/issues)
-[![GitHub license](https://img.shields.io/github/license/NAStool/nas-tools?style=plastic)](https://github.com/NAStool/nas-tools/blob/master/LICENSE.md)
-[![Docker pulls](https://img.shields.io/docker/pulls/jxxghp/nas-tools?style=plastic)](https://hub.docker.com/r/jxxghp/nas-tools)
-[![Platform](https://img.shields.io/badge/platform-amd64/arm64-pink?style=plastic)](https://hub.docker.com/r/jxxghp/nas-tools)
+[![GitHub stars](https://img.shields.io/github/stars/NAStool/nas-tools?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/NAStool/nas-tools?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/NAStool/nas-tools?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/issues)
+[![GitHub license](https://img.shields.io/github/license/NAStool/nas-tools?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/blob/main/LICENSE.md)
+[![Docker pulls](https://img.shields.io/docker/pulls/c939984606/nas_tools_pro?style=plastic)](https://hub.docker.com/r/c939984606/nas_tools_pro)
+[![Platform](https://img.shields.io/badge/platform-amd64/arm64-pink?style=plastic)](https://hub.docker.com/r/c939984606/nas_tools_pro)
 
 
 Docker：
-* https://hub.docker.com/r/jxxghp/nas-tools 
-* https://hub.docker.com/r/nastool/nas-tools
-
-TG频道：https://t.me/nastool_official
-
-Wiki：https://wiki.nastool.cn
+* https://hub.docker.com/r/c939984606/nas_tools_pro
 
 API: http://localhost:3000/api/v1/
 
@@ -28,7 +23,7 @@ NAS媒体库管理工具。
 ## 安装
 ### 1、Docker
 ```
-docker pull jxxghp/nas-tools:latest
+docker pull c939984606/nas_tools_pro:latest
 ```
 教程见 [这里](docker/readme.md) 。
 
@@ -37,7 +32,7 @@ docker pull jxxghp/nas-tools:latest
 ### 2、本地运行
 python3.10版本，需要预安装cython，如发现缺少依赖包需额外安装：
 ```
-git clone -b master https://github.com/NAStool/nas-tools --recurse-submodule 
+git clone -b main https://github.com/c939984606/Nas_Tools_Pro --recurse-submodule 
 python3 -m pip install -r requirements.txt
 export NASTOOL_CONFIG="/xxx/config/config.yaml"
 nohup python3 run.py & 
@@ -46,14 +41,10 @@ nohup python3 run.py &
 ### 3、可执行文件
 下载打包好的执行文件运行即可，会自动生成配置文件目录：
 
-https://github.com/NAStool/nas-tools/releases
+https://github.com/c939984606/Nas_Tools_Pro/releases
 
 ### 4、群晖套件
-添加矿神群晖SPK套件源直接安装：
-
-https://spk.imnks.com/
-
-https://spk7.imnks.com/
+暂不支持
 
 ## 免责声明
 1) 本软件仅供学习交流使用，软件本身不提供任何内容，仅作为辅助工具简化用户手工操作，对用户的行为及内容毫不知情，使用本软件产生的任何责任需由使用者本人承担。

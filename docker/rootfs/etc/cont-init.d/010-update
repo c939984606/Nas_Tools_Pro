@@ -54,9 +54,9 @@ function package_update {
 
     if grep -Eqi "Debian" /etc/issue || grep -Eq "Debian" /etc/os-release; then
         if [ "${NASTOOL_CN_UPDATE}" = "true" ]; then
-            package_list_debian_url=https://ghproxy.com/https://github.com/NAStool/nas-tools-builder/raw/main/debian/package_list.txt
+            package_list_debian_url=https://ghproxy.com/https://github.com/c939984606/Nas_Tools_Pro_builder/raw/main/debian/package_list.txt
         else
-            package_list_debian_url=https://github.com/NAStool/nas-tools-builder/raw/main/debian/package_list.txt
+            package_list_debian_url=https://github.com/c939984606/Nas_Tools_Pro_builder/raw/main/debian/package_list.txt
         fi
         if [ ! -f /tmp/package_list_debian.txt ]; then
             curl -L ${package_list_debian_url} -o /tmp/package_list_debian.txt
@@ -174,7 +174,7 @@ function __main {
         if [[ "${NASTOOL_VERSION}" == "dev" ]]; then
         branch="dev"
         else
-        branch="master"
+        branch="main"
         fi
 
         git clean -dffx

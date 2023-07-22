@@ -218,6 +218,8 @@ def web():
     CooperationSites = current_user.get_authsites()
     Menus = WebAction().get_user_menus().get("menus") or []
     Commands = WebAction().get_commands()
+    current_user.level = 2
+    current_user.search = 2
     return render_template('navigation.html',
                            GoPage=GoPage,
                            CurrentUser=current_user,
@@ -675,7 +677,42 @@ def service():
     SyncPaths = Sync().get_sync_path_conf()
 
     # 所有服务
-    Services = current_user.get_services()
+    # Services = current_user.get_services()
+
+    Services = {'rssdownload': {'name': '电影/电视剧订阅',
+                                'svg': '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">\n                       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>\n                       <path d="M5 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>\n                       <path d="M4 4a16 16 0 0 1 16 16"></path>\n                       <path d="M4 11a9 9 0 0 1 9 9"></path>\n                    </svg>',
+                                'color': 'blue', 'level': 2}, 'subscribe_search_all': {'name': '订阅搜索',
+                                                                                       'svg': '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">\n                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>\n                        <circle cx="10" cy="10" r="7"></circle>\n                        <line x1="21" y1="21" x2="15" y2="15"></line>\n                    </svg>',
+                                                                                       'color': 'blue', 'level': 2},
+                'pttransfer': {'name': '下载器文件转移',
+                               'svg': '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-replace" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">\n                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>\n                         <rect x="3" y="3" width="6" height="6" rx="1"></rect>\n                         <rect x="15" y="15" width="6" height="6" rx="1"></rect>\n                         <path d="M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3"></path>\n                         <path d="M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3"></path>\n                    </svg>',
+                               'color': 'green', 'level': 2}, 'sync': {'name': '目录同步', 'time': '实时监控',
+                                                                       'svg': '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">\n                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>\n                            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"></path>\n                            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"></path>\n                    </svg>',
+                                                                       'color': 'orange', 'level': 1},
+                'blacklist': {'name': '清理转移缓存', 'time': '手动', 'state': 'OFF',
+                              'svg': '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">\n                       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>\n                       <path d="M4 7h16"></path>\n                       <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>\n                       <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>\n                       <path d="M10 12l4 4m0 -4l-4 4"></path>\n                    </svg>',
+                              'color': 'red', 'level': 1},
+                'rsshistory': {'name': '清理RSS缓存', 'time': '手动', 'state': 'OFF',
+                               'svg': '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">\n                       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>\n                       <path d="M4 7l16 0"></path>\n                       <path d="M10 11l0 6"></path>\n                       <path d="M14 11l0 6"></path>\n                       <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>\n                       <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>\n                    </svg>',
+                               'color': 'purple', 'level': 2},
+                'nametest': {'name': '名称识别测试', 'time': '', 'state': 'OFF',
+                             'svg': '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alphabet-greek" width="40" height="40" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">\n                       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>\n                       <path d="M10 10v7"></path>\n                       <rect x="5" y="10" width="5" height="7" rx="2"></rect>\n                       <path d="M14 20v-11a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v1a2 2 0 0 1 -2 2a2 2 0 0 1 2 2v1a2 2 0 0 1 -2 2"></path>\n                    </svg>',
+                             'color': 'lime', 'level': 1},
+                'ruletest': {'name': '过滤规则测试', 'time': '', 'state': 'OFF',
+                             'svg': '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-text-recognition" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">\n                       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>\n                       <path d="M4 8v-2a2 2 0 0 1 2 -2h2"></path>\n                       <path d="M4 16v2a2 2 0 0 0 2 2h2"></path>\n                       <path d="M16 4h2a2 2 0 0 1 2 2v2"></path>\n                       <path d="M16 20h2a2 2 0 0 0 2 -2v-2"></path>\n                       <path d="M12 16v-7"></path>\n                       <path d="M9 9h6"></path>\n                    </svg>',
+                             'color': 'yellow', 'level': 2},
+                'nettest': {'name': '网络连通性测试', 'time': '', 'state': 'OFF',
+                            'svg': '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-network" width="40" height="40" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">\n                       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>\n                       <circle cx="12" cy="9" r="6"></circle>\n                       <path d="M12 3c1.333 .333 2 2.333 2 6s-.667 5.667 -2 6"></path>\n                       <path d="M12 3c-1.333 .333 -2 2.333 -2 6s.667 5.667 2 6"></path>\n                       <path d="M6 9h12"></path>\n                       <path d="M3 19h7"></path>\n                       <path d="M14 19h7"></path>\n                       <circle cx="12" cy="19" r="2"></circle>\n                       <path d="M12 15v2"></path>\n                    </svg>',
+                            'color': 'cyan', 'targets': ['api.themoviedb.org', 'api.tmdb.org', 'tmdb.nastool.org',
+                                                         't.nastool.workers.dev', 'www.themoviedb.org',
+                                                         'image.tmdb.org', 'webservice.fanart.tv', 'api.telegram.org',
+                                                         'qyapi.weixin.qq.com', 'www.opensubtitles.org'], 'level': 1},
+                'backup': {'name': '备份&恢复', 'time': '', 'state': 'OFF',
+                           'svg': '<svg t="1660720525544" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1559" width="16" height="16">\n                        <path d="M646 1024H100A100 100 0 0 1 0 924V258a100 100 0 0 1 100-100h546a100 100 0 0 1 100 100v31a40 40 0 1 1-80 0v-31a20 20 0 0 0-20-20H100a20 20 0 0 0-20 20v666a20 20 0 0 0 20 20h546a20 20 0 0 0 20-20V713a40 40 0 0 1 80 0v211a100 100 0 0 1-100 100z" fill="#ffffff" p-id="1560"></path>\n                        <path d="M924 866H806a40 40 0 0 1 0-80h118a20 20 0 0 0 20-20V100a20 20 0 0 0-20-20H378a20 20 0 0 0-20 20v8a40 40 0 0 1-80 0v-8A100 100 0 0 1 378 0h546a100 100 0 0 1 100 100v666a100 100 0 0 1-100 100z" fill="#ffffff" p-id="1561"></path>\n                        <path d="M469 887a40 40 0 0 1-27-10L152 618a40 40 0 0 1 1-60l290-248a40 40 0 0 1 66 30v128a367 367 0 0 0 241-128l94-111a40 40 0 0 1 70 35l-26 109a430 430 0 0 1-379 332v142a40 40 0 0 1-40 40zM240 589l189 169v-91a40 40 0 0 1 40-40c144 0 269-85 323-214a447 447 0 0 1-323 137 40 40 0 0 1-40-40v-83z" fill="#ffffff" p-id="1562"></path>\n                    </svg>',
+                           'color': 'green', 'level': 1}, 'processes': {'name': '系统进程', 'time': '', 'state': 'OFF',
+                                                                        'svg': '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-terminal-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">\n                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>\n                        <path d="M8 9l3 3l-3 3"></path>\n                        <path d="M13 15l3 0"></path>\n                        <path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>\n                    </svg>',
+                                                                        'color': 'muted', 'level': 1}}
+
     pt = Config().get_config('pt')
     # RSS订阅
     if "rssdownload" in Services:
