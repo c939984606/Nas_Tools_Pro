@@ -1,15 +1,15 @@
 name: NAStool Docker
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
-    paths:
-      - version.py
-      - .github/workflows/build.yml
-      - package_list.txt
-      - requirements.txt
-      - docker/Dockerfile
+#  push:
+#    branches:
+#      - main
+#    paths:
+#      - version.py
+#      - .github/workflows/build.yml
+#      - package_list.txt
+#      - requirements.txt
+#      - docker/Dockerfile
 
 jobs:
   build:
