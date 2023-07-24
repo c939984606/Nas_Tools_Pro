@@ -1,10 +1,10 @@
 ![logo-blue](https://user-images.githubusercontent.com/51039935/197520391-f35db354-6071-4c12-86ea-fc450f04bc85.png)
 # NAS媒体库管理工具
 
-[![GitHub stars](https://img.shields.io/github/stars/NAStool/nas-tools?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/NAStool/nas-tools?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/NAStool/nas-tools?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/issues)
-[![GitHub license](https://img.shields.io/github/license/NAStool/nas-tools?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/blob/main/LICENSE.md)
+[![GitHub stars](https://img.shields.io/github/stars/c939984606/Nas_Tools_Pro?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/c939984606/Nas_Tools_Pro?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/c939984606/Nas_Tools_Pro?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/issues)
+[![GitHub license](https://img.shields.io/github/license/c939984606/Nas_Tools_Pro?style=plastic)](https://github.com/c939984606/Nas_Tools_Pro/blob/main/LICENSE.md)
 [![Docker pulls](https://img.shields.io/docker/pulls/c939984606/nas_tools_pro?style=plastic)](https://hub.docker.com/r/c939984606/nas_tools_pro)
 [![Platform](https://img.shields.io/badge/platform-amd64/arm64-pink?style=plastic)](https://hub.docker.com/r/c939984606/nas_tools_pro)
 
@@ -12,7 +12,8 @@
 Docker：
 * https://hub.docker.com/r/c939984606/nas_tools_pro
 
-API: http://localhost:3000/api/v1/
+API: 
+* http://localhost:3000/api/v1/
 
 
 ## 功能：
@@ -21,11 +22,31 @@ NAS媒体库管理工具。基于3.2.2版本最后一次Commit，增加修复了
 
 （PS:由于3.2.3要关闭之前删除了部分功能，所以暂时不会更新到3.2.3版本。）
 
+## 更新
+
+- [x] 2023-7-20：修复了一些功能（移除认证，域名修复，豆瓣图片修复，签到修复）等。
+
 
 ## 安装
 ### 1、Docker
 ```
 docker pull c939984606/nas_tools_pro:latest
+```
+
+示例:
+```docker
+docker run -d \
+--name nas-tools \
+--hostname nas-tools \
+-p 3000:3000 \
+-v  /your/path:/config \
+-v  /your/path:/Download \
+-e PUID=0 \
+-e PGID=0 \
+-e UMASK=022 \
+-e NASTOOL_AUTO_UPDATE=true \
+--restart always \
+c939984606/nas_tools_pro:latest
 ```
 教程见 [这里](docker/readme.md) 。
 
@@ -41,9 +62,7 @@ nohup python3 run.py &
 ```
 
 ### 3、可执行文件
-下载打包好的执行文件运行即可，会自动生成配置文件目录：
-
-https://github.com/c939984606/Nas_Tools_Pro/releases
+暂不支持
 
 ### 4、群晖套件
 暂不支持
